@@ -20,7 +20,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 from misc import AvgMeter, check_mkdir
 from ORSI_SOD_dataset_YCbCr_final import  ORSI_SOD_dataset  
-from src.baseline123_original_YCbCr import net as Net  
+from src.baseline123_YCbCr import net as Net  
 from src.TFGM import AuxiliaryLoss
 from evaluator_SR_YCbCr import Eval_thread
 
@@ -31,7 +31,7 @@ loss_enhance = AuxiliaryLoss()
 args = {
     'iter_num': 7500,
     'epoch': 100,
-    'train_batch_size': 8,
+    'train_batch_size': 2,
     'last_iter': 0,
     'lr': 1e-3,
     'lr_decay': 0.9,
@@ -146,10 +146,10 @@ def train(net, optimizer):
 
 
         if epoch % 10 == 0 or (epoch >= 60 and epoch %2 ==0):
-            thread = Eval_thread(epoch = epoch, model = net.eval(), loader = test_loader, method = "baseline123_original_YCbCr_final_", dataset = dataset, output_dir = "./data/output", cuda=True)
+            thread = Eval_thread(epoch = epoch, model = net.eval(), loader = test_loader, method = "baseline123_YCbCr_final_", dataset = dataset, output_dir = "./data/output", cuda=True)
             logg, fm = thread.run()
             print(logg)
-            torch.save(net.state_dict(), './data/model_224*224_bs=8_baseline123_original_YCbCr_final_'+ dataset +'/epoch_{}_{}.pth'.format(epoch,fm))
+            torch.save(net.state_dict(), './data/model_224*224_bs=8_baseline123_YCbCr_final_'+ dataset +'/epoch_{}_{}.pth'.format(epoch,fm))
            
         
     ##      #############end###############

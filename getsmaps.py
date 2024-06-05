@@ -8,7 +8,7 @@ from tqdm import tqdm
 import torch.nn.functional as F
 
 from ORSI_SOD_dataset_YCbCr_final import ORSI_SOD_dataset
-from src.baseline123_original_YCbCr import net as Net 
+from src.baseline123_YCbCr import net as Net 
 from evaluator_SR_YCbCr import Eval_thread
 
 
